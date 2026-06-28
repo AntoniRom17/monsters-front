@@ -1,3 +1,21 @@
+#root {
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+}
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
 :root {
   --mu-navy: #082f5b;
   --mu-blue: #0076b9;
