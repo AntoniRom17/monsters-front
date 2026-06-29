@@ -1,0 +1,191 @@
+.about-page {
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  background-color: #f4f7fa;
+}
+
+.about-content {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: var(--mu-white);
+  box-shadow: 0 10px 30px rgba(8, 47, 91, 0.14);
+}
+
+/* ABOUT PAGE HEADER */
+
+.about-page .page-heading {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3rem;
+  text-align: center;
+  background-color: var(--mu-navy);
+  color: var(--mu-white);
+}
+
+.about-page .page-heading h1 {
+  margin: 0.5rem 0 1rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.3rem, 5vw, 3.8rem);
+  font-weight: 400;
+}
+
+.about-page .page-heading > p:last-child {
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.about-page .page-eyebrow {
+  margin: 0;
+  color: var(--mu-light-blue);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2rem;
+}
+
+/* ABOUT SECTIONS */
+
+.about-section {
+  padding: 3rem;
+  border-bottom: 1px solid #d9e2ec;
+}
+
+.about-section:last-child {
+  border-bottom: none;
+}
+
+.about-section h2 {
+  margin: 0 0 1rem;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--mu-navy);
+  font-size: 2rem;
+}
+
+.about-section > p {
+  color: #39475a;
+  line-height: 1.8;
+}
+
+/* MISSION */
+
+.mission-list {
+  margin: 1.5rem 0 0;
+  padding-left: 1.5rem;
+}
+
+.mission-list li {
+  margin-bottom: 0.8rem;
+  color: #39475a;
+  line-height: 1.6;
+}
+
+.mission-list li::marker {
+  color: var(--mu-light-blue);
+}
+
+/* WHY CHOOSE MU */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.about-card {
+  padding: 1.75rem;
+  border-top: 5px solid var(--mu-light-blue);
+  background-color: #edf5fa;
+}
+
+.about-card h3 {
+  margin: 0 0 0.75rem;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--mu-navy);
+  font-size: 1.35rem;
+}
+
+.about-card p {
+  margin: 0;
+  color: #39475a;
+  line-height: 1.65;
+}
+
+/* UNIVERSITY FACTS */
+
+.facts-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.fact-card {
+  padding: 1.5rem;
+  text-align: center;
+  border-left: 5px solid var(--mu-light-blue);
+  background-color: #edf5fa;
+}
+
+.fact-card h3 {
+  margin: 0 0 0.5rem;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--mu-navy);
+  font-size: 2rem;
+}
+
+.fact-card p {
+  margin: 0;
+  color: #4a5568;
+  font-weight: 700;
+}
+
+/* MOTTO */
+
+.about-motto {
+  text-align: center;
+  background-color: var(--mu-navy);
+  color: var(--mu-white);
+}
+
+.about-motto h2 {
+  margin: 0.5rem 0 0;
+  color: var(--mu-white);
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+
+/* TABLET */
+
+@media (max-width: 850px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .facts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .about-page {
+    padding: 2rem 1rem;
+  }
+
+  .about-page .page-heading,
+  .about-section {
+    padding: 2rem 1.25rem;
+  }
+
+  .facts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fact-card {
+    border-left: none;
+    border-top: 5px solid var(--mu-light-blue);
+  }
+}
