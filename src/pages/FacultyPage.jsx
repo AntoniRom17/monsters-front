@@ -14,7 +14,7 @@ export default function FacultyPage() {
       <div className="directory-grid">
         {faculty.map((professor) => {
           return (
-            <article className="directory-card" key={professor.id}>
+            <article className="directory-card faculty-card" key={professor.id}>
               <h2>{professor.name}</h2>
 
               <p className="faculty-title">{professor.title}</p>

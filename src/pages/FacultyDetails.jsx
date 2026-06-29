@@ -5,7 +5,7 @@ import "../styles/directory.css";
 export default function FacultyDetails() {
   const { id } = useParams();
 
-  const professor = faculty.find((professor) => professor.id === Number(id));
+  const professor = faculty.find((professor) => String(professor.id) === id);
 
   if (!professor) {
     return (

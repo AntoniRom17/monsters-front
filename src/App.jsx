@@ -8,6 +8,8 @@ import FacultyPage from "./pages/FacultyPage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import "./App.css";
+import FacultyDetails from "./pages/FacultyDetails.jsx";
+import AboutPage from "./pages/AboutPage.jsx";
 
 export default function App() {
   return (
@@ -17,8 +19,10 @@ export default function App() {
         <Route path="/departments" element={<DepartmentsPage />} />
         <Route path="/departments/:id" element={<DepartmentDetails />} />
         <Route path="/faculty" element={<FacultyPage />} />
+        <Route path="/faculty/:id" element={<FacultyDetails />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/about" element={<AboutPage />} />
       </Route>
     </Routes>
   );
