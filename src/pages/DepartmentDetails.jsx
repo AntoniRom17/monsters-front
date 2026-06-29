@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-
 import FacultyCard from "../components/FacultyCard";
 import { getDepartment, getDepartmentFaculty } from "../api/departments";
 import "../styles/directory.css";
@@ -9,11 +8,28 @@ export default function DepartmentDetails() {
   const { id } = useParams();
   const [department, setDepartment] = useState(null);
   const [departmentFaculty, setDepartmentFaculty] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getDepartment(id).then(setDepartment);
-    getDepartmentFaculty(id).then(setDepartmentFaculty);
+    Promise.all([getDepartment(id), getDepartmentFaculty(id)]).then(
+      ([dept, faculty]) => {
+        setDepartment(dept);
+        setDepartmentFaculty(faculty);
+        setLoading(false);
+      }
+    );
   }, [id]);
+
+  if (loading) {
+    return (
+      <section className="department-details-page">
+        <div className="department-hero">
+          <p className="page-eyebrow">MU DEPARTMENT</p>
+          <h1>Loading...</h1>
+        </div>
+      </section>
+    );
+  }
 
   if (!department) {
     return (
@@ -23,7 +39,6 @@ export default function DepartmentDetails() {
           <h1>Department Not Found</h1>
           <p>We could not find that department.</p>
         </div>
-
         <div className="department-content single-column">
           <Link className="card-link" to="/departments">
             Back to Departments
@@ -48,10 +63,8 @@ export default function DepartmentDetails() {
             src={department.image}
             alt={department.imageAlt}
           />
-
           <h2>About This Department</h2>
           <p>{department.description}</p>
-
           <Link className="card-link" to="/departments">
             Back to Departments
           </Link>
@@ -59,19 +72,16 @@ export default function DepartmentDetails() {
 
         <aside className="contact-panel">
           <h2>Contact</h2>
-
           <p>
             <strong>Email</strong>
             <br />
             <a href={`mailto:${department.contact_email}`}>{department.contact_email}</a>
           </p>
-
           <p>
             <strong>Phone</strong>
             <br />
             {department.phone}
           </p>
-
           <p>
             <strong>Location</strong>
             <br />
@@ -85,7 +95,6 @@ export default function DepartmentDetails() {
           <p className="page-eyebrow">FACULTY</p>
           <h2>{department.name} Faculty</h2>
         </div>
-
         <div className="directory-grid compact-grid">
           {departmentFaculty.map((professor) => {
             return <FacultyCard professor={professor} key={professor.id} />;

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
 import "../styles/auth.css";
 
 const emptyForm = {
@@ -12,42 +11,34 @@ export default function LoginPage() {
   const [form, setForm] = useState(emptyForm);
   const [message, setMessage] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("muAdminLoggedIn") === "true",
+    !!localStorage.getItem("muAdminToken"),
   );
 
   function handleChange(event) {
     const { name, value } = event.target;
-
-    setForm((currentForm) => {
-      return {
-        ...currentForm,
-        [name]: value,
-      };
-    });
+    setForm((currentForm) => ({ ...currentForm, [name]: value }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-
-    const savedAdmin = JSON.parse(localStorage.getItem("muAdmin"));
-
-    if (!savedAdmin) {
-      setMessage("No admin account exists yet. Please register first.");
-      return;
-    }
-
-    if (
-      savedAdmin.email === form.email &&
-      savedAdmin.password === form.password
-    ) {
-      localStorage.setItem("muAdminLoggedIn", "true");
+    try {
+      const res = await fetch("http://localhost:3000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: form.email, password: form.password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setMessage(data.error || "Login failed.");
+        return;
+      }
+      localStorage.setItem("muAdminToken", data.token);
       setIsLoggedIn(true);
-      setMessage(`Welcome back, ${savedAdmin.name}.`);
+      setMessage("Welcome back!");
       setForm(emptyForm);
-      return;
+    } catch (err) {
+      setMessage("Could not connect to server.");
     }
-
-    setMessage("Email or password does not match.");
   }
 
   return (

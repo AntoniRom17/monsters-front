@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
 import "../styles/auth.css";
 
 const emptyForm = {
-  name: "",
   email: "",
   password: "",
 };
@@ -15,22 +13,28 @@ export default function RegisterPage() {
 
   function handleChange(event) {
     const { name, value } = event.target;
-
-    setForm((currentForm) => {
-      return {
-        ...currentForm,
-        [name]: value,
-      };
-    });
+    setForm((currentForm) => ({ ...currentForm, [name]: value }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-
-    localStorage.setItem("muAdmin", JSON.stringify(form));
-    localStorage.setItem("muAdminLoggedIn", "false");
-    setMessage(`Admin account created for ${form.email}.`);
-    setForm(emptyForm);
+    try {
+      const res = await fetch("http://localhost:3000/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: form.email, password: form.password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setMessage(data.error || "Registration failed.");
+        return;
+      }
+      localStorage.setItem("muAdminToken", data.token);
+      setMessage(`Admin account created for ${form.email}.`);
+      setForm(emptyForm);
+    } catch (err) {
+      setMessage("Could not connect to server.");
+    }
   }
 
   return (
@@ -38,20 +42,7 @@ export default function RegisterPage() {
       <form className="auth-form" onSubmit={handleSubmit}>
         <p className="page-eyebrow">ADMIN ACCESS</p>
         <h1>Register</h1>
-        <p>
-          Anyone can create a Monsters University admin account for this
-          project.
-        </p>
-
-        <label htmlFor="name">Name</label>
-        <input
-          id="name"
-          name="name"
-          onChange={handleChange}
-          required
-          type="text"
-          value={form.name}
-        />
+        <p>Anyone can create a Monsters University admin account for this project.</p>
 
         <label htmlFor="email">Email</label>
         <input

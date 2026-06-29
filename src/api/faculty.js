@@ -1,4 +1,3 @@
-import { faculty } from "../data/dummyData";
 import { apiRequest } from "./client";
 
 function normalizeFaculty(professor) {
@@ -14,6 +13,6 @@ function normalizeFaculty(professor) {
 }
 
 export async function getFaculty() {
-  const data = await apiRequest("/professors", faculty);
+  const data = await apiRequest("/professors");
   return data.map(normalizeFaculty);
 }
