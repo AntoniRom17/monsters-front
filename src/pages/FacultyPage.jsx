@@ -1,8 +1,15 @@
-import { faculty } from "../data/dummyData.js";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getFaculty } from "../api/faculty";
 import "../styles/directory.css";
 
 export default function FacultyPage() {
+  const [faculty, setFaculty] = useState([]);
+
+  useEffect(() => {
+    getFaculty().then(setFaculty);
+  }, []);
+
   return (
     <section className="directory-page">
       <div className="page-heading">

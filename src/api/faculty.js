@@ -14,7 +14,6 @@ function normalizeFaculty(professor) {
 }
 
 export async function getFaculty() {
-  const data = await apiRequest("/faculty", faculty);
-
+  const data = await apiRequest("/professors", faculty);
   return data.map(normalizeFaculty);
 }

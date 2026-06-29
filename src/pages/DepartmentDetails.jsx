@@ -1,15 +1,19 @@
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import FacultyCard from "../components/FacultyCard";
-import { departments, faculty } from "../data/dummyData";
+import { getDepartment, getDepartmentFaculty } from "../api/departments";
 import "../styles/directory.css";
 
 export default function DepartmentDetails() {
   const { id } = useParams();
+  const [department, setDepartment] = useState(null);
+  const [departmentFaculty, setDepartmentFaculty] = useState([]);
 
-  const department = departments.find((department) => {
-    return department.id === Number(id);
-  });
+  useEffect(() => {
+    getDepartment(id).then(setDepartment);
+    getDepartmentFaculty(id).then(setDepartmentFaculty);
+  }, [id]);
 
   if (!department) {
     return (
@@ -28,10 +32,6 @@ export default function DepartmentDetails() {
       </section>
     );
   }
-
-  const departmentFaculty = faculty.filter((professor) => {
-    return professor.departmentId === department.id;
-  });
 
   return (
     <section className="department-details-page">
@@ -63,7 +63,7 @@ export default function DepartmentDetails() {
           <p>
             <strong>Email</strong>
             <br />
-            <a href={`mailto:${department.email}`}>{department.email}</a>
+            <a href={`mailto:${department.contact_email}`}>{department.contact_email}</a>
           </p>
 
           <p>

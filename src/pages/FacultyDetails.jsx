@@ -1,11 +1,18 @@
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { faculty } from "../data/dummyData.js";
+import { getFaculty } from "../api/faculty";
 import "../styles/directory.css";
 
 export default function FacultyDetails() {
   const { id } = useParams();
+  const [professor, setProfessor] = useState(null);
 
-  const professor = faculty.find((professor) => String(professor.id) === id);
+  useEffect(() => {
+    getFaculty().then((data) => {
+      const found = data.find((p) => String(p.id) === id);
+      setProfessor(found);
+    });
+  }, [id]);
 
   if (!professor) {
     return (
@@ -58,14 +65,13 @@ export default function FacultyDetails() {
             <p>
               <strong>Email</strong>
               <br />
-
               <a href={`mailto:${professor.email}`}>{professor.email}</a>
             </p>
 
             <p>
               <strong>Department</strong>
               <br />
-              {professor.department}
+              {professor.department_name || professor.department}
             </p>
 
             <p>

@@ -5,7 +5,7 @@ export const departments = [
     description:
       "The signature Monsters University program, where students study scare technique, room entry, roar control, and performance under pressure.",
     image:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+      "scream technology image https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=80",
     imageAlt: "A grand campus building representing Scare Hall",
     email: "scaring@monstersuniversity.edu",
     phone: "555-0131",
